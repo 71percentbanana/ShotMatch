@@ -6,7 +6,7 @@
   "description": "A local, embeddable ShotMatch photography concept demo.",
   "scripts": {
     "build": "echo 'Static build ready'",
-    "start": "node server.mjs",
-    "dev": "node server.mjs"
+    "start": "node dev-server.mjs",
+    "dev": "node dev-server.mjs"
   }
 }

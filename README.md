@@ -9,10 +9,10 @@ Requires Node.js 18 or newer. There are no packages to install.
 ```sh
 git clone https://github.com/71percentbanana/ShotMatch.git shotmatch
 cd shotmatch
-node server.mjs
+node dev-server.mjs
 ```
 
-Open the localhost URL printed by the server. It starts at port 4173 and tries the next available port if occupied. You can also use `npm start` or pass a port: `node server.mjs 4300`.
+Open the localhost URL printed by the server. It starts at port 4173 and tries the next available port if occupied. You can also use `npm start` or pass a port: `node dev-server.mjs 4300`.
 
 ## Embed in a website
 
@@ -54,7 +54,7 @@ Gallery images live only in memory and are cleared on reload. Downloaded origina
 - `index.html`: accessible app structure and review/gallery dialogs.
 - `styles.css`: responsive ShotMatch styling.
 - `app.js`: local state, image pipeline, guidance simulation and browser camera.
-- `server.mjs`: dependency-free development server, restricted to loopback.
+- `dev-server.mjs`: dependency-free development server, restricted to loopback.
 - `assets/`: generated sample photos, extracted from the team's concept gallery.
 - `vendor/lucide.min.js`: bundled Lucide icons; license in `vendor/LUCIDE-LICENSE`.
 
