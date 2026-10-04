@@ -4,5 +4,9 @@
   "private": true,
   "type": "module",
   "description": "A local, embeddable ShotMatch photography concept demo.",
-  "scripts": { "start": "node server.mjs", "dev": "node server.mjs" }
+  "scripts": {
+    "build": "echo 'Static build ready'",
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  }
 }
