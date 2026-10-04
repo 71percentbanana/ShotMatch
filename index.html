@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087b70">
+  <meta name="description" content="ShotMatch: an interactive reference-to-photo camera concept by Chapati Soldiers.">
+  <title>ShotMatch | Find your frame</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./vendor/lucide.min.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="ShotMatch home"><span class="brand-mark"><i data-lucide="aperture"></i></span>ShotMatch<span class="brand-period">.</span></a>
+    <nav class="main-nav" aria-label="Workspace"><span class="nav-current"><i data-lucide="camera"></i> Shoot</span><button id="gallery-open"><i data-lucide="images"></i> Gallery <span id="gallery-count">0</span></button></nav>
+    <div class="header-right"><span class="concept-label">INTERACTIVE CONCEPT</span><span class="team-name">Chapati Soldiers</span></div>
+  </header>
+
+  <main class="app-shell">
+    <div class="workspace-heading"><div><p class="eyebrow">THE SHOOTING ROOM</p><h1>Find your frame.</h1></div><div class="session-label"><i data-lucide="shield-check"></i><span>Local session</span></div></div>
+    <div class="workspace">
+      <aside class="reference-panel" aria-labelledby="reference-heading">
+        <div class="section-heading"><h2 id="reference-heading">Your inspiration</h2><span class="section-number">01</span></div>
+        <div id="reference-drop" class="reference-drop">
+          <img id="reference-image" alt="Current reference photograph" draggable="false">
+          <span class="photo-label">REFERENCE</span>
+          <button id="reference-replace" class="icon-button floating-button" aria-label="Replace reference" data-tooltip="Replace reference"><i data-lucide="replace"></i></button>
+        </div>
+        <div class="reference-caption"><span id="reference-name">Window light</span><i data-lucide="bookmark-check"></i></div>
+        <button id="reference-import" class="button secondary full-width"><i data-lucide="upload"></i> Import reference</button>
+        <input id="reference-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+        <div class="palette-section"><div class="small-heading">Reference palette</div><div id="palette" class="palette" aria-label="Colors from the reference"></div></div>
+        <div class="divider"></div>
+        <div class="small-heading">Demo scenes</div>
+        <div class="scene-list" role="group" aria-label="Demo scenes">
+          <button class="scene active" data-scene="still-life" aria-pressed="true"><img src="./assets/still-life.jpg" alt="Blue vase and orange flower"><span>Window light</span><i data-lucide="check"></i></button>
+          <button class="scene" data-scene="portrait" aria-pressed="false"><img src="./assets/portrait.jpg" alt="Portrait in a sunlit courtyard"><span>Everyday portrait</span><i data-lucide="check"></i></button>
+          <button class="scene" data-scene="coast" aria-pressed="false"><img src="./assets/coast.jpg" alt="Coast at sunset"><span>Last light</span><i data-lucide="check"></i></button>
+        </div>
+        <div class="reference-meta"><i data-lucide="image"></i><span>Saved photo / Pinterest reference</span></div>
+      </aside>
+
+      <section class="camera-panel" aria-label="Camera workspace">
+        <div class="camera-toolbar">
+          <div class="mode-control" role="group" aria-label="Image source"><button id="demo-mode" class="selected" aria-pressed="true"><i data-lucide="image"></i> Demo</button><button id="camera-mode" aria-pressed="false"><i data-lucide="camera"></i> Camera</button></div>
+          <div class="toolbar-actions"><button id="scene-import" class="icon-button" aria-label="Open your photo" data-tooltip="Open your photo"><i data-lucide="image-plus"></i></button><button id="grid-toggle" class="icon-button active" aria-label="Toggle composition grid" aria-pressed="true" data-tooltip="Composition grid"><i data-lucide="grid-3x3"></i></button><button id="fullscreen-toggle" class="icon-button" aria-label="Fullscreen preview" data-tooltip="Fullscreen preview"><i data-lucide="maximize"></i></button></div>
+        </div>
+        <input id="scene-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+        <p id="camera-error" class="error-message" role="alert" hidden></p>
+        <div id="preview-shell"><div id="stage" class="stage" tabindex="0" aria-label="Photo preview. Use arrow keys or drag to adjust framing.">
+          <canvas id="preview" aria-label="Current photograph with live color adjustments"></canvas>
+          <div class="stage-top"><span id="source-label"><span class="live-dot"></span> DEMO SCENE</span><span class="aspect-label">4:3</span><button id="fullscreen-exit" class="stage-icon fullscreen-exit" aria-label="Exit fullscreen" data-tooltip="Exit fullscreen"><i data-lucide="minimize"></i></button></div>
+          <div id="composition-grid" class="composition-grid" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div id="target-box" class="target-box" aria-hidden="true"></div>
+          <div id="subject-box" class="subject-box" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div id="stage-cue" class="stage-cue"><i data-lucide="move-left"></i><span>Bring the subject a little left</span></div>
+          <div class="stage-bottom"><span id="guidance-label">Preset framing</span><button id="framing-reset" class="stage-icon" aria-label="Reset framing" data-tooltip="Reset framing"><i data-lucide="rotate-ccw"></i></button></div>
+          <div id="capture-flash" class="capture-flash" aria-hidden="true"></div>
+        </div></div>
+        <div class="framing-controls">
+          <div class="nudge-controls" role="group" aria-label="Move the photograph"><button class="icon-button" data-nudge="left" aria-label="Move photograph left" data-tooltip="Move left"><i data-lucide="arrow-left"></i></button><button class="icon-button" data-nudge="up" aria-label="Move photograph up" data-tooltip="Move up"><i data-lucide="arrow-up"></i></button><button class="icon-button" data-nudge="down" aria-label="Move photograph down" data-tooltip="Move down"><i data-lucide="arrow-down"></i></button><button class="icon-button" data-nudge="right" aria-label="Move photograph right" data-tooltip="Move right"><i data-lucide="arrow-right"></i></button></div>
+          <label class="zoom-control"><i data-lucide="search"></i><input id="zoom" type="range" min="1" max="1.65" step="0.01" value="1.18" aria-label="Zoom"><output id="zoom-value" for="zoom">1.18x</output></label>
+        </div>
+        <div class="capture-bar"><button id="last-capture" class="last-capture" aria-label="Open latest capture" disabled><i data-lucide="image"></i></button><div class="shutter-wrap"><button id="shutter" class="shutter" aria-label="Capture photo"><span></span></button><span>CAPTURE</span></div><button id="mirror-toggle" class="icon-button" aria-label="Mirror preview" aria-pressed="false" data-tooltip="Mirror preview"><i data-lucide="flip-horizontal-2"></i></button></div>
+        <div class="camera-footnote"><span id="camera-status"><i data-lucide="circle-dot"></i><span>Ready to shoot</span></span><span>ShotMatch / Concept demo</span></div>
+      </section>
+
+      <aside class="controls-panel" aria-labelledby="guidance-heading">
+        <div class="section-heading"><h2 id="guidance-heading">A little direction</h2><span class="section-number">02</span></div>
+        <div class="guidance-tool"><div class="guidance-eyebrow"><i data-lucide="scan-line"></i><span id="guide-mode">FRAMING GUIDE</span></div><h3 id="cue-title">A little to the left.</h3><p id="cue-detail">Bring the subject toward the reference outline.</p><div class="alignment-row"><span id="alignment-label">Guide alignment</span><strong id="alignment-value">72%</strong></div><div class="alignment-track"><span id="alignment-fill"></span></div><button id="align-button" class="button teal full-width"><i data-lucide="scan"></i> Match demo framing</button></div>
+        <div class="light-reading"><span><i data-lucide="sun"></i> Light reading</span><strong id="light-value">Balanced</strong></div>
+        <div class="small-stats"><span>Clipped highlights</span><span id="clipping-value">0.0%</span></div>
+        <div class="divider"></div>
+        <div class="look-heading"><h2>Your color look</h2><button id="look-reset" class="icon-button" aria-label="Reset color adjustments" data-tooltip="Reset color adjustments"><i data-lucide="rotate-ccw"></i></button></div>
+        <div class="sliders">
+          <label class="adjustment"><span><i data-lucide="sun-medium"></i> Brightness <output id="brightness-value" for="brightness">0</output></span><input id="brightness" type="range" min="-40" max="40" value="0"></label>
+          <label class="adjustment"><span><i data-lucide="contrast"></i> Contrast <output id="contrast-value" for="contrast">0</output></span><input id="contrast" type="range" min="-30" max="40" value="0"></label>
+          <label class="adjustment"><span><i data-lucide="droplets"></i> Saturation <output id="saturation-value" for="saturation">0</output></span><input id="saturation" type="range" min="-50" max="60" value="0"></label>
+          <label class="adjustment"><span><i data-lucide="thermometer-sun"></i> Warmth <output id="warmth-value" for="warmth">0</output></span><input id="warmth" type="range" min="-40" max="40" value="0"></label>
+        </div>
+        <button id="suggest-look" class="button secondary full-width"><i data-lucide="wand-sparkles"></i> Suggest a reference look</button>
+        <p id="look-status" class="look-status" aria-live="polite">Original colors</p>
+      </aside>
+    </div>
+  </main>
+  <video id="camera-video" autoplay muted playsinline hidden></video>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <dialog id="review-dialog" class="review-dialog"><div class="dialog-heading"><div><p class="eyebrow">THE RESULT</p><h2>Your shot.</h2></div><button id="review-close" class="icon-button" aria-label="Close photo review"><i data-lucide="x"></i></button></div><div class="comparison"><img id="review-before" alt="Capture before color adjustments"><div id="review-after-wrap"><img id="review-after" alt="Capture with your color adjustments"></div><div id="comparison-divider"></div><span class="before-label">ORIGINAL</span><span class="after-label">YOUR LOOK</span></div><label class="comparison-control"><span>Original</span><input id="comparison-range" type="range" min="0" max="100" value="50" aria-label="Compare original and edited photo"><span>Your look</span></label><div class="review-actions"><button id="download-original" class="button secondary"><i data-lucide="download"></i> Original</button><button id="download-edited" class="button teal"><i data-lucide="download"></i> Save photo</button></div></dialog>
+  <dialog id="gallery-dialog" class="gallery-dialog"><div class="dialog-heading"><div><p class="eyebrow">THIS SESSION</p><h2>Your gallery.</h2></div><button id="gallery-close" class="icon-button" aria-label="Close gallery"><i data-lucide="x"></i></button></div><div id="gallery-grid" class="gallery-grid"></div><div id="gallery-empty" class="gallery-empty"><i data-lucide="images"></i><h3>A fresh roll.</h3><p>No captures in this session yet.</p></div><div class="gallery-footer"><span id="gallery-total">0 photos</span><button id="clear-gallery" class="button secondary"><i data-lucide="trash-2"></i> Clear gallery</button></div></dialog>
+</body>
+</html>
