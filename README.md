@@ -1,22 +1,26 @@
-# ShotMatch web demo
+# ShotMatch – Responsive Concept Demo
 
-A responsive, embeddable concept demo for **ShotMatch**, by **Chapati Soldiers**.
+A lightweight, embeddable interactive demo by Chapati Soldiers (Alan James, Anuroop Phukan, Ishaan Sridharan).
 
-## Run locally
+## Getting Started Locally
 
-Requires Node.js 18 or newer. There are no packages to install.
+**Requirements:** Node.js 18+. No dependencies to install.
 
-```sh
+```bash
 git clone https://github.com/71percentbanana/ShotMatch.git shotmatch
 cd shotmatch
 node scripts/dev-server.mjs
 ```
 
-Open the localhost URL printed by the server. It starts at port 4173 and tries the next available port if occupied. You can also pass a port: `node scripts/dev-server.mjs 4300`.
+The server will print a localhost URL (starting at port 4173; automatically tries the next available port if it's in use). You can specify a port manually:
 
-## Embed in a website
+```bash
+node scripts/dev-server.mjs 4300
+```
 
-Host the folder's static client files on your website, then use an iframe:
+## Embedding on Your Website
+
+Host the project's client files and embed via iframe:
 
 ```html
 <iframe
@@ -27,39 +31,44 @@ Host the folder's static client files on your website, then use an iframe:
 ></iframe>
 ```
 
-The embed query hides the full-page navigation. Set the height to suit your layout; the content remains scrollable on narrow screens. Camera access requires HTTPS or localhost, permission from the visitor, and a compatible iframe Permissions Policy. A cross-origin host must also permit the iframe's origin in its camera policy. Public hosting is not configured or deployed by this project.
+The `embed=1` parameter hides full-page navigation. Adjust height to fit your layout; the content remains scrollable on mobile. 
 
-## What works
+**Camera permissions:** Requires HTTPS (or localhost), visitor permission, and compatible iframe permissions policy. Cross-origin hosts must allow the iframe's origin in their camera policy. This project doesn't include public hosting or deployment.
 
-- Three bundled demo scenes and locally imported reference/photos (JPG, PNG, WebP, AVIF; 20 MB and 40 MP limits).
-- Canvas-based framing: drag, keyboard arrows, nudge controls, zoom, mirror and composition grid.
-- Brightness, contrast, saturation and warmth controls, with the same renderer for preview and export.
-- Reference palette extraction, image-statistics light readings and bounded color suggestions.
-- A camera mode through `getUserMedia`, requested only after the visitor selects Camera.
-- Capture, original/edited comparison, JPEG downloads and an in-memory session gallery of up to eight shots.
-- Responsive layout, keyboard-accessible controls, reduced-motion support and labeled error states.
+## What's Included
 
-## Concept boundaries
+- **Three demo scenes** plus local photo uploads (JPG, PNG, WebP, AVIF; 20 MB and 40 MP max)
+- **Canvas framing tools:** drag, arrow keys, zoom, mirror, composition grid, nudge controls
+- **Image adjustments:** brightness, contrast, saturation, warmth
+- **Color tools:** palette extraction from references, light metering, bounded color suggestions
+- **Camera capture** via `getUserMedia` (only requested when Camera is selected)
+- **Output options:** compare original/edited, download JPEG, in-memory gallery (up to 8 shots)
+- **Accessibility:** responsive layout, keyboard controls, reduced-motion support, clear error states
 
-**No trained AI or subject/pose detection runs in this demo.** The three built-in scenes have manually specified bounding boxes. Framing feedback and the alignment percentage are calculated from the demo image's pan/zoom relative to its preset framing. They are not detection confidence, aesthetic scores or evidence of an implemented Android model. Uploading a different reference or photo, or enabling the camera, switches to manual framing and disables preset alignment.
+## What This Demo Does *Not* Do
 
-Color suggestions compare small-image luminance, saturation, contrast and relative red/blue balance. They are visual starting points, not physical lighting reconstruction or guaranteed style matches. Brightness is a software edit, not hardware exposure compensation. Camera ISO, shutter, exposure and white balance are not controlled here. Browser color behavior may vary. Warmth uses a soft-light tint, not a Kelvin adjustment.
+This is a manual framing tool, not an AI assistant:
 
-Demo reference images have a small predefined color treatment to make the reference/look workflow visible. The sample photographs were generated for the ShotMatch concept deck. User images are never uploaded to a backend; the client has no external network dependencies or analytics. No Pinterest integration or scraping is implemented. Visitors can import a photo they have saved and are permitted to use.
+- **No object detection.** Built-in scenes use preset bounding boxes; framing feedback comes from manual pan/zoom against those presets, not confidence scores
+- **No aesthetic scoring.** Alignment percentages reflect framing, not automated aesthetics or model predictions
+- **No hardware control.** Brightness is a software filter; camera ISO, shutter, white balance, and exposure remain in your device's hands
+- **No Kelvin math.** Warmth is a soft-light tint overlay
+- **No cloud processing.** All work happens client-side; no server dependencies, uploads, or analytics
+- **No Pinterest scraping** or external integrations
 
-Gallery images live only in memory and are cleared on reload. Downloaded originals preserve the captured framing before color adjustments; they are not a lossless copy of an imported source file. Exports are 1600x1200 JPEG. Keep the source file for full original quality.
+Color suggestions are visual starting points based on luminance, saturation, contrast, and color balance—not physical lighting reconstruction.
 
-## Files
+Demo references include a subtle preset color treatment to show the reference/look workflow. Sample photos were generated for the concept deck. Your uploaded photos never leave your browser; gallery images are cleared on reload. Downloaded originals preserve your framing *before* color adjustments (for full quality, keep the source file). Exports are 1600×1200 JPEG.
 
-- `index.html`: accessible app structure and review/gallery dialogs.
-- `styles.css`: responsive ShotMatch styling.
-- `js/app.js`: local state, image pipeline, guidance simulation and browser camera.
-- `scripts/dev-server.mjs`: dependency-free development server, restricted to loopback.
-- `assets/`: generated sample photos, extracted from the team's concept gallery.
-- `vendor/lucide.min.js`: bundled Lucide icons; license in `vendor/LUCIDE-LICENSE`.
+## Project Structure
 
-Team: Alan James, Anuroop Phukan and Ishaan Sridharan.
+- `index.html` – App markup and dialogs
+- `styles.css` – Responsive styling
+- `js/app.js` – State, image pipeline, guidance, and browser camera
+- `scripts/dev-server.mjs` – Zero-dependency dev server (localhost only)
+- `assets/` – Sample photos
+- `vendor/lucide.min.js` – Bundled icons (see `vendor/LUCIDE-LICENSE`)
 
-## Android app
+## Android App
 
-A Capacitor-based Android prototype lives in [`mobile/`](mobile/README.md), with build and phone-install instructions.
+A Capacitor-based prototype is in the `mobile/` folder with build and installation instructions.
