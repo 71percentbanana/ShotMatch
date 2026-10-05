@@ -1,0 +1,17 @@
+{
+  "appId": "com.chapatisoldiers.shotmatch",
+  "appName": "ShotMatch",
+  "webDir": "www",
+  "backgroundColor": "#0b1210",
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": true
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    }
+  }
+}

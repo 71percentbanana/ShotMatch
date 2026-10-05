@@ -59,3 +59,7 @@ Gallery images live only in memory and are cleared on reload. Downloaded origina
 - `vendor/lucide.min.js`: bundled Lucide icons; license in `vendor/LUCIDE-LICENSE`.
 
 Team: Alan James, Anuroop Phukan and Ishaan Sridharan.
+
+## Android app
+
+A Capacitor-based Android prototype lives in [`mobile/`](mobile/README.md), with build and phone-install instructions.

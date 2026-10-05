@@ -1,0 +1,24 @@
+{
+  "name": "shotmatch-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ShotMatch Android prototype (Capacitor wrapper around the phone-first web UI in www/).",
+  "type": "module",
+  "scripts": {
+    "copy": "node scripts/copy-shared.mjs",
+    "sync": "node scripts/copy-shared.mjs && cap sync android",
+    "apk": "node scripts/build-apk.mjs",
+    "install-phone": "node scripts/build-apk.mjs --install"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/filesystem": "^8.1.4",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/share": "^8.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2"
+  }
+}
